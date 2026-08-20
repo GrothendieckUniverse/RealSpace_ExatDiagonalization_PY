@@ -148,10 +148,7 @@ For each orbit $\mathcal{O}_{[\mathbf{s}]}$ with canonical representative
 $[\mathbf{s}]$ (the smallest mask in the orbit), the projector onto the
 orbit's irrep-compatible subspace is
 
-$$P_\chi[\mathbf{s}] \propto
-    \sum_{g \in G} \chi(g)^*\, U_g |[\mathbf{s}]\rangle
-    \propto \sum_{h \in \mathrm{Stab}([\mathbf{s}])}
-    \chi(h)^*\, \alpha_h([\mathbf{s}]) |[\mathbf{s}]\rangle .$$
+$$P_\chi[\mathbf{s}] \propto \sum_{g \in G} \chi(g)^* U_g |[\mathbf{s}]\rangle \propto \sum_{h \in \mathrm{Stab}([\mathbf{s}])} \chi(h)^* \alpha_h([\mathbf{s}]) |[\mathbf{s}]\rangle .$$
 
 An orbit contributes to irrep $\chi$ iff
 $\chi(h) = \alpha_h([\mathbf{s}])$ for all $h \in \mathrm{Stab}$, and the
