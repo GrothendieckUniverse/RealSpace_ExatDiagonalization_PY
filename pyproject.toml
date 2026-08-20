@@ -1,0 +1,27 @@
+[project]
+name = "realspace-exactdiagonalization-py"
+version = "0.1.0"
+description = "Symmetry-resolved exact diagonalization on arbitrary real-space graphs — Python port of RealSpace_ExactDiagonalization.jl"
+readme = "README.md"
+authors = [
+    { name = "xiaodong-hu", email = "hxd.phys@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "matplotlib>=3.8",
+    "tightbinding-py",
+    "ipykernel>=6.29",
+    "nbformat>=5.10",
+]
+
+[project.scripts]
+realspace-exactdiagonalization-py = "realspace_exactdiagonalization_py:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+tightbinding-py = { path = "../TightBinding_PY", editable = true }
