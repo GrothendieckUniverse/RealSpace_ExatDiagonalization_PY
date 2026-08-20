@@ -116,11 +116,9 @@ diagram):
 
 ### Bitmask Encoding
 
-\begin{equation}
-    \boxed{|\mathbf{s}\rangle \equiv |n_1,\ldots,n_N\rangle
+$$\boxed{|\mathbf{s}\rangle \equiv |n_1,\ldots,n_N\rangle
     \;\longmapsto\; m = \sum_{i=1}^N n_i\,2^{\,i-1}
-    \;\in\; \{0,1,\ldots,2^N-1\}.}
-\end{equation}
+    \;\in\; \{0,1,\ldots,2^N-1\}.}$$
 
 Bit $i-1$ (0-based) corresponds to vertex $i$ (1-based).  For $N \le 63$
 the masks fit in 64 bits and the hot loops run on `numpy.uint64` arrays.
@@ -132,18 +130,14 @@ breaking — symmetry is the property $[H, U_g] = 0$ for a unitary
 representation of a finite group $G$.  The action on creation operators
 defines the representation:
 
-\begin{equation}
-    \boxed{U_g\,a_i^\dagger\,U_g^{-1} = \eta_g(i)\,a_{\pi_g(i)}^\dagger,}
-\end{equation}
+$$\boxed{U_g\,a_i^\dagger\,U_g^{-1} = \eta_g(i)\,a_{\pi_g(i)}^\dagger,}$$
 
 with $\pi_g \in S_N$ a permutation and $\eta_g(i)$ a U(1) phase.  On a
 Fock mask,
 
-\begin{equation}
-    U_g |n_1,\ldots,n_N\rangle =
+$$U_g |n_1,\ldots,n_N\rangle =
     \Big(\prod_{i\in\mathrm{occ}} \eta_g(i)\Big)\,\mathrm{sgn}_g(\mathrm{occ})\,
-    |n_{\pi(1)},\ldots,n_{\pi(N)}\rangle,
-\end{equation}
+    |n_{\pi(1)},\ldots,n_{\pi(N)}\rangle,$$
 
 where $\mathrm{sgn}_g = 1$ for bosons and the permutation parity for
 fermions (tracked via `popcount(new_mask >> π(i))`).
@@ -154,12 +148,10 @@ For each orbit $\mathcal{O}_{[\mathbf{s}]}$ with canonical representative
 $[\mathbf{s}]$ (the smallest mask in the orbit), the projector onto the
 orbit's irrep-compatible subspace is
 
-\begin{equation}
-    P_\chi[\mathbf{s}] \propto
+$$P_\chi[\mathbf{s}] \propto
     \sum_{g \in G} \chi(g)^*\, U_g |[\mathbf{s}]\rangle
     \propto \sum_{h \in \mathrm{Stab}([\mathbf{s}])}
-    \chi(h)^*\, \alpha_h([\mathbf{s}]) |[\mathbf{s}]\rangle .
-\end{equation}
+    \chi(h)^*\, \alpha_h([\mathbf{s}]) |[\mathbf{s}]\rangle .$$
 
 An orbit contributes to irrep $\chi$ iff
 $\chi(h) = \alpha_h([\mathbf{s}])$ for all $h \in \mathrm{Stab}$, and the
@@ -169,12 +161,10 @@ normalized basis state carries the factor $\sqrt{|G|/|\mathrm{Stab}|}$.
 
 For $H = \sum t_{ij} a_i^\dagger a_j + \sum V_{ij} n_i n_j$,
 
-\begin{equation}
-    H_{\mathrm{row},\mathrm{col}} = t_{ij}\,
+$$H_{\mathrm{row},\mathrm{col}} = t_{ij}\,
     \underbrace{(-1)^{n_{\mathrm{between}}}}_{\text{JW string}}\,
     \underbrace{\alpha\,\chi(g)^*}_{\text{projection}}\,
-    \sqrt{\frac{|\mathrm{Stab}(\mathrm{row})|}{|\mathrm{Stab}(\mathrm{col})|}},
-\end{equation}
+    \sqrt{\frac{|\mathrm{Stab}(\mathrm{row})|}{|\mathrm{Stab}(\mathrm{col})|}},$$
 
 with $\alpha$ the phase accumulated when the hopping image of the column
 representative is mapped back to the row representative by group element
@@ -183,7 +173,7 @@ $g$.
 ### Jordan–Wigner String (Fermions)
 
 Hopping $i_{\mathrm{from}} \to i_{\mathrm{to}}$ acquires
-$(-1)^{\#\{\text{occupied sites strictly between}\}}$, so fermions differ
+$(-1)^{\{\text{\# occupied sites strictly between}\}}$, so fermions differ
 from hard-core bosons only by local sign factors — no explicit
 Jordan–Wigner transform is needed.
 
