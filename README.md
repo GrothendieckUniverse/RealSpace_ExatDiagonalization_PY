@@ -238,28 +238,33 @@ ed.ed_scan(ed_data, nev=5, mode="matrix",
 ### 1. Spin-½ Heisenberg Chain — `examples/spin_heisenberg_chain.py`
 
 $H = J\sum_{\langle i,j\rangle}\mathbf{S}_i\cdot\mathbf{S}_j$ via the
-Matsubara–Matsuda hard-core boson mapping, half filling (total
-$S^z = 0$), $\mathbb{Z}_{N_{\mathrm{site}}}$ translation symmetry.
-Ground-state energy matches the Bethe ansatz $E_0/N = \tfrac14 - \ln 2$.
+Matsubara–Matsuda hard-core boson mapping on an $N=20$ chain, half
+filling (total $S^z = 0$), $\mathbb{Z}_{N_{\mathrm{site}}}$ translation
+symmetry. Ground-state energy approaches the Bethe ansatz
+$E_0/N = \tfrac14 - \ln 2 \approx -0.4431$.
 
 ### 2. Bosonic Fractional Chern Insulator — `examples/boson_fci_haldane.py`
 
 The extended Bose–Hubbard model on the Haldane honeycomb lattice at
-$t'' = -0.58$ (D. N. Sheng *et al.*, PRL **107**, 146803 (2011)): two
-nearly-degenerate ground states at $k=(0,0)$ and $k=(1,0)$ on $[2,3]$ —
-the semion FCI doublet.
+$t'' = -0.58$ (D. N. Sheng *et al.*, PRL **107**, 146803 (2011)): on the
+$[3,4]$ torus at half band filling (6 hard-core bosons) two
+nearly-degenerate ground states at $k=(0,0)$ and $k=(0,2)$ —
+the semion FCI doublet (GSD = 2).
 
 ### 3. Spinful Fermi-Hubbard Model — `examples/fermion_hubbard_square.py`
 
 Spin degrees of freedom flattened into an interleaved graph
-(i↑ → 2i−1, i↓ → 2i); half filling per spin; $\mathbb{Z}_{L_x}\times
-\mathbb{Z}_{L_y}$ translation symmetry.
+(i↑ → 2i−1, i↓ → 2i); half filling per spin on a $[2,4]$ lattice
+(8 spatial sites → 16 graph vertices, 8 particles);
+$\mathbb{Z}_{L_x}\times\mathbb{Z}_{L_y}$ translation symmetry.
 
-### 4. Fermionic Fractional Chern Insulator — `examples/fermion_fci_checkerboard.py`
+### 4. Exotic Fermionic Fractional Chern Insulator — `examples/fermion_fci_checkerboard.py`
 
 The checkerboard lattice with staggered flux (Sun–Gu–Katsura–Sarma,
-arXiv:1012.5864): two flat Chern bands, three nearly-degenerate
-ground states at $\nu = 2/3$ per band (GSD = 3).
+arXiv:1012.5864) in the fine-tuned "exotic" phase: customized
+$V_1, V_2, V_3$ (all scaled by $\lambda = 2.8$) at $t'' = -0.2$. On the
+$[3,5]$ torus at $\nu = 1/3$ per band (5 fermions) three
+nearly-degenerate ground states at $k=(0,0), (1,0), (2,0)$ (GSD = 3).
 
 ## Many-Body Topological Observables
 

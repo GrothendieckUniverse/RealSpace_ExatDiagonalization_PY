@@ -1,12 +1,14 @@
 #!/usr/bin/env python
-"""Example 4: Fermionic fractional Chern insulator on the checkerboard lattice.
+"""Example 4: Exotic fermionic fractional Chern insulator on the checkerboard lattice.
 
 The spinless-fermion checkerboard model with staggered flux has two flat
 bands with Chern numbers ±1 [K. Sun, Z. Gu, H. Katsura, S. Das Sarma,
-arXiv:1012.5864].  At ν = 2/3 filling of the lower band (8 fermions on
-the 3×4×2 = 24 flattened vertices) the ground state is a fermionic
+arXiv:1012.5864].  The fine-tuned "exotic" parameters (customized
+V1, V2, V3, all scaled by λ = 2.8) at t'' = −0.2 place the model in the
+fermionic FCI phase: at ν = 1/3 filling of the lower band (5 fermions on
+the 3×5×2 = 30 flattened vertices) the ground state is a fermionic
 fractional Chern insulator with three nearly-degenerate ground states on
-the torus (GSD = 3).  Port of ``examples/fermion_fci_checkerboard.jl``.
+the torus (GSD = 3).
 
 Usage::
 
@@ -15,7 +17,6 @@ Usage::
 
 from __future__ import annotations
 
-import math
 import os
 
 from fractions import Fraction
@@ -24,32 +25,19 @@ import realspace_exactdiagonalization_py as ed
 
 
 def main() -> None:
-    sample_size = [3, 4]
-    params = dict(ed.params_Sun_Gu_Katsura_Sarma)
-    filling_fraction_per_band = Fraction(1, 3)  # ν = 2/3 per band
+    sample_size = [3, 5]
+    params = dict(ed.models.fermionic_fci.my_optimal_param)
+    params["t''"] = -0.2  # → FCI phase
+    filling_fraction_per_band = Fraction(1, 3)  # ν = 1/3 per band
 
-    model = ed.build_zero_flux_fermionic_fci_second_quantized_model(
-        sample_size=sample_size, params=params
+    # The phase-explore builder assembles the model and the symmetry-
+    # resolved ED data in one call and returns (model, ed_data, n_filled,
+    # filling_fraction).
+    model, ed_data, n_filled, filling_fraction = (
+        ed.build_phase_explore_fermionic_checkerboard_model(
+            params, sample_size, filling_fraction_per_band
+        )
     )
-    lattice = model.lattice
-    filling_fraction = filling_fraction_per_band / lattice.n_sub
-    n_filled = int(lattice.n_site * filling_fraction)
-    print(
-        f"[ED] Fermionic FCI: {sample_size[0]}×{sample_size[1]} "
-        f"checkerboard, {lattice.n_site} sites, {n_filled} fermions "
-        f"(filling {filling_fraction})"
-    )
-
-    symmetry_group = ed.build_translation_group(lattice)
-    ed_data = ed.build_ed_data(
-        model, filling_fraction=filling_fraction, symmetry_group=symmetry_group
-    )
-
-    print(f"\n  Full Hilbert space dim: {math.comb(lattice.n_site, n_filled)}")
-    print(
-        f"  Orbits: {len(ed_data.orbit_catalog.representative_mask_list)}"
-    )
-    print(f"  Irreps: {len(ed_data.irrep_list)}  (momenta (k₁,k₂))")
 
     ed.ed_scan(ed_data, nev=5, mode="matrix")
 
@@ -86,7 +74,11 @@ def main() -> None:
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "figures"
     )
     os.makedirs(fig_dir, exist_ok=True)
-    fig, ax = ed.plot_spectrum(ed_data, shift_to_zero=True)
+    fig, ax = ed.plot_spectrum(
+        ed_data, shift_to_zero=True,
+        title=r"ED Spectrum for Exotic Fermionic Checkerboard FCI "
+              r"($t'' = -0.2$) on [3,5] sample at $\nu = 1/3$",
+    )
     fig.savefig(os.path.join(fig_dir, "fermion_FCI_checkerboard_spectrum.svg"))
 
     print("\nDone.")

@@ -24,7 +24,7 @@ import realspace_exactdiagonalization_py as ed
 
 
 def main() -> None:
-    N_SITE = 16  # chain length
+    N_SITE = 20  # chain length
     J = 1.0      # exchange coupling (J > 0 = antiferromagnetic)
 
     # ── 1. Build the ED data (model + Z_N translation symmetry) ──
@@ -66,7 +66,10 @@ def main() -> None:
 
     # ── 3. Spectrum plot ──
     ed.print_spectrum(ed_data, shift_to_zero=True)
-    fig, ax = ed.plot_spectrum(ed_data, shift_to_zero=True)
+    fig, ax = ed.plot_spectrum(
+        ed_data, shift_to_zero=True,
+        title=r"ED Spectrum for Heisenberg Chain on N=20 sample at $\nu = 1/2$",
+    )
     fig_dir = os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "figures"
     )

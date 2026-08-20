@@ -3057,7 +3057,10 @@ def print_spectrum(
 
 
 def plot_spectrum(
-    ed_data: Symmetry_Resolved_ED_Data, *, shift_to_zero: bool = True
+    ed_data: Symmetry_Resolved_ED_Data,
+    *,
+    shift_to_zero: bool = True,
+    title: str | None = None,
 ) -> tuple[Any, Any]:
     """Plot the symmetry-resolved spectrum (matplotlib).
 
@@ -3065,6 +3068,8 @@ def plot_spectrum(
         ed_data: the ED data structure.
         shift_to_zero: whether to shift the spectrum so the minimum
             eigenvalue is zero.
+        title: optional plot title; defaults to a summary of the sample
+            size and filling fraction.
 
     Returns:
         tuple: ``(fig, ax)``.
@@ -3082,10 +3087,12 @@ def plot_spectrum(
     fig, ax = plt.subplots(figsize=(6.0, 4.0))
     ax.set_xlabel("Irrep index")
     ax.set_ylabel("E")
-    ax.set_title(
-        f"ED Spectrum — {ed_data.second_quantized_model.lattice.sample_size}, "
-        f"ν={ed_data.filling_fraction}"
-    )
+    if title is None:
+        title = (
+            f"ED Spectrum - {ed_data.second_quantized_model.lattice.sample_size}, "
+            f"$\\nu={ed_data.filling_fraction}$"
+        )
+    ax.set_title(title)
     for k in range(n_irrep):
         for e in range(nev):
             val = spec[k, e]

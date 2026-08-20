@@ -2,8 +2,8 @@
 """Example 2: Bosonic fractional Chern insulator on the Haldane honeycomb lattice.
 
 The extended Bose–Hubbard model on the Haldane honeycomb lattice at half
-filling of the lower Chern band (ν = 1/2 per band → 3 hard-core bosons on
-the 2×3×2 = 12 flattened vertices) hosts the finite-size analogue of the
+filling of the lower Chern band (ν = 1/2 per band → 6 hard-core bosons on
+the 3×4×2 = 24 flattened vertices) hosts the finite-size analogue of the
 bosonic Laughlin state (GSD = 2 on the torus)
 [D. N. Sheng et al., PRL 107, 146803 (2011)].  Port of
 ``examples/boson_fci_haldane.jl``.
@@ -24,14 +24,14 @@ import realspace_exactdiagonalization_py as ed
 
 
 def main() -> None:
-    sample_size = [2, 3]
+    sample_size = [3, 4]
     params = dict(ed.params_DNSheng)  # t'' = -0.58 → FCI phase
 
     model = ed.build_zero_flux_bosonic_fci_second_quantized_model(
         sample_size=sample_size, params=params
     )
     lattice = model.lattice
-    n_filled = 3  # half filling of the band → 1/4 of the flattened vertices
+    n_filled = 6  # half filling of the band → 1/4 of the flattened vertices
 
     # ── Translation symmetry + ED data ──
     symmetry_group = ed.build_translation_group(lattice)
@@ -82,7 +82,11 @@ def main() -> None:
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "figures"
     )
     os.makedirs(fig_dir, exist_ok=True)
-    fig, ax = ed.plot_spectrum(ed_data, shift_to_zero=True)
+    fig, ax = ed.plot_spectrum(
+        ed_data, shift_to_zero=True,
+        title=r"ED Spectrum for Bosonic Haldane FCI ($t'' = -0.58$) "
+              r"on [3,4] sample at $\nu = 1/2$",
+    )
     fig.savefig(os.path.join(fig_dir, "bosonic_FCI_spectrum.svg"))
 
     print("\nDone.")

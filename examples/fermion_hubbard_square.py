@@ -4,9 +4,9 @@
     H = -t Σ_{⟨i,j⟩,σ} (c†_{iσ} c_{jσ} + h.c.)  +  U Σ_i n_{i↑} n_{i↓}
 
 Spinful fermions handled by flattening the spin degree of freedom into an
-interleaved graph: site i↑ → vertex 2i−1, i↓ → vertex 2i.  Lattice: 2×3
-(6 spatial sites → 12 graph vertices); half filling per spin → 6 particles;
-translation symmetry ℤ₂ × ℤ₃.  Port of
+interleaved graph: site i↑ → vertex 2i−1, i↓ → vertex 2i.  Lattice: 2×4
+(8 spatial sites → 16 graph vertices); half filling per spin → 8 particles;
+translation symmetry ℤ₂ × ℤ₄.  Port of
 ``examples/fermion_hubbard_square.jl``.
 
 Usage::
@@ -23,7 +23,7 @@ import realspace_exactdiagonalization_py as ed
 
 
 def main() -> None:
-    sample_size = [2, 3]  # Lx × Ly
+    sample_size = [2, 4]  # Lx × Ly
     t = 1.0               # hopping
     U = 8.0               # on-site Hubbard repulsion
 
@@ -67,7 +67,11 @@ def main() -> None:
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "figures"
     )
     os.makedirs(fig_dir, exist_ok=True)
-    fig, ax = ed.plot_spectrum(ed_data, shift_to_zero=True)
+    fig, ax = ed.plot_spectrum(
+        ed_data, shift_to_zero=True,
+        title=r"ED Spectrum for Spinful Fermi-Hubbard on [2,4] sample "
+              r"at $\nu = 1/2$",
+    )
     fig.savefig(os.path.join(fig_dir, "fermion_hubbard_square_spectrum.svg"))
 
     print("\nDone.")
